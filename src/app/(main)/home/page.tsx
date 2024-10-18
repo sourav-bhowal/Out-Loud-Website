@@ -2,7 +2,7 @@
 export default function HomePage() {
   return (
     <main>
-      News
+      Articles
     </main>
   );
 }

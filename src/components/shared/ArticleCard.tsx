@@ -1,9 +1,9 @@
-
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, Eye } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 // PROPS INTERFACE FOR THE COMPONENT
 interface ArticleProps {
@@ -56,10 +56,10 @@ export default function ArticleCard({
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button variant="ghost" className="ml-auto group" asChild>
-          <a href={`/article/${id}`}>
+          <Link href={`/home/article/${id}`}>
             Read More
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
+          </Link>
         </Button>
       </CardFooter>
     </Card>
