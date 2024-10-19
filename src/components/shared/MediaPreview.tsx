@@ -39,7 +39,7 @@ interface MediaPreviewProps {
 
 // MEDIA UPLOAD PREVIEW COMPONENT
 export function MediaPreview({
-  media: { mediaId, file, isUploading },
+  media: { file, isUploading },
   onRemoveClick,
 }: MediaPreviewProps) {
   // src to file
