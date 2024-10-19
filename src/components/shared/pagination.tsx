@@ -12,29 +12,29 @@ type PaginationProps = {
 
 // PAGINATION COMPONENT
 export const Pagination = (props: PaginationProps) => {
-  const { page = 1, totalPages = 0, hasNextPage } = props;
+  const { page = 1, hasNextPage } = props;
 
   const currentPage = Number(page);
 
-  const getPagesToShow = () => {
-    let startPage = currentPage - 2;
-    let endPage = currentPage + 2;
+  // const getPagesToShow = () => {
+  //   let startPage = currentPage - 2;
+  //   let endPage = currentPage + 2;
 
-    if (currentPage <= 3) {
-      startPage = 1;
-      endPage = 5;
-    } else if (currentPage >= totalPages - 2) {
-      startPage = totalPages - 4;
-      endPage = totalPages;
-    }
+  //   if (currentPage <= 3) {
+  //     startPage = 1;
+  //     endPage = 5;
+  //   } else if (currentPage >= totalPages - 2) {
+  //     startPage = totalPages - 4;
+  //     endPage = totalPages;
+  //   }
 
-    return Array.from(
-      { length: endPage - startPage + 1 },
-      (_, i) => startPage + i,
-    );
-  };
+  //   return Array.from(
+  //     { length: endPage - startPage + 1 },
+  //     (_, i) => startPage + i,
+  //   );
+  // };
 
-  const pages = getPagesToShow();
+  // const pages = getPagesToShow();
 
   return (
     <div className="flex items-center justify-center space-x-6 text-black dark:text-white">
