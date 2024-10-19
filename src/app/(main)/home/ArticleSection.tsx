@@ -1,11 +1,11 @@
 "use client";
 import ArticleCard from "./ArticleCard";
-import { Pagination } from "@/components/shared/Pagination";
 import { IArticle } from "@/models/Article.model";
 import { FilterSchemaType } from "@/validations/article.schema";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { Pagination } from "./Pagination";
 
 // INTERFACE
 interface ArticleSectionProps {
