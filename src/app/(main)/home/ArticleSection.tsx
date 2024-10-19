@@ -1,6 +1,6 @@
 "use client";
-import ArticleCard from "@/components/shared/ArticleCard";
-import { Pagination } from "@/components/shared/pagination";
+import ArticleCard from "./ArticleCard";
+import { Pagination } from "@/components/shared/Pagination";
 import { IArticle } from "@/models/Article.model";
 import { FilterSchemaType } from "@/validations/article.schema";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +12,7 @@ interface ArticleSectionProps {
   filters: FilterSchemaType;
 }
 
+// ARTICLE SECTION COMPONENT
 export default function ArticleSection({
   filters: { page, perPage },
 }: ArticleSectionProps) {
@@ -61,8 +62,18 @@ export default function ArticleSection({
       </div>
       <div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-5">
-          {articles.map((article: IArticle) => (
-            <ArticleCard key={article.id} article={article} />
+          {articles.map((article: IArticle, index: number) => (
+            <ArticleCard
+              key={article.id}
+              article={article}
+              className={
+                index === 0
+                  ? "md:col-span-2 md:row-span-2"
+                  : index === 3
+                  ? "md:col-span-2"
+                  : ""
+              }
+            />
           ))}
         </div>
       </div>

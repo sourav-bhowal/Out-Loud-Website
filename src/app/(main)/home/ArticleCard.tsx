@@ -5,19 +5,21 @@ import { ArrowRight, Clock, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { IArticle } from "@/models/Article.model";
+import placeHolderImage from "@/assets/placeholder-img.webp"
 
 // PROPS INTERFACE FOR THE COMPONENT
 interface ArticleProps {
   article: IArticle;
+  className?: string;
 }
 
 // ARTICLE CARD COMPONENT
-export default function ArticleCard({ article }: ArticleProps) {
+export default function ArticleCard({ article, className }: ArticleProps) {
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg">
+    <Card className={`overflow-hidden transition-all hover:shadow-lg ${className}`}>
       <div className="aspect-video relative">
         <Image
-          src={article?.attachments[0]?.url || "/placeholder.jpg"}
+          src={article?.attachments[0]?.url || placeHolderImage}
           alt={article.title}
           className="object-cover w-full h-full transition-transform hover:scale-105"
           width={800}
@@ -28,7 +30,7 @@ export default function ArticleCard({ article }: ArticleProps) {
         </Badge>
       </div>
       <CardContent className="p-4">
-        <h3 className="text-xl font-semibold mb-2 line-clamp-2">{article.title}</h3>
+        <h3 className="text-xl font-semibold mb-2 line-clamp-5 capitalize">{article.title}</h3>
         <p className="text-muted-foreground mb-4 line-clamp-3">{article.content}</p>
         <div className="flex items-center text-sm text-muted-foreground space-x-4">
           <div className="flex items-center">

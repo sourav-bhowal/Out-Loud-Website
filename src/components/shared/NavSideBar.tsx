@@ -2,9 +2,9 @@
 import {
   HelpCircle,
   Home,
+  LayoutDashboard,
   Loader2,
   Menu,
-  UserCheck2Icon,
   X,
 } from "lucide-react";
 import { ThemeToggler } from "./ThemeToggler";
@@ -25,7 +25,7 @@ import { usePathname } from "next/navigation";
 // NAVBAR ITEMS
 const navItems = [
   { icon: Home, label: "Home", href: "/home" },
-  { icon: UserCheck2Icon, label: "Admin", href: "/admin" },
+  { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: HelpCircle, label: "Contact Us", href: "/contact-us" },
 ];
 
@@ -47,7 +47,7 @@ export default function NavSideBar() {
     <main>
       {/* Mobile toggle button */}
       <div className="md:hidden flex items-center justify-between p-4 border-b">
-        <h2 className="text-xl uppercase font-semibold">Out Loud</h2>
+        <h2 className="text-xl uppercase font-bold text-primary">Out Loud</h2>
         <Button variant="outline" size="icon" onClick={toggleSidebar}>
           {isSidebarOpen ? (
             <X className="h-4 w-4" />
@@ -72,7 +72,7 @@ export default function NavSideBar() {
                 alt="Company Logo"
                 className="h-8 w-auto"
               /> */}
-              <span className="text-2xl font-bold tracking-wide">Out Loud</span>
+              <span className="text-2xl font-bold tracking-wide text-primary uppercase">Out Loud</span>
             </div>
           </div>
 
@@ -117,9 +117,15 @@ export default function NavSideBar() {
           {/* Theme Toggle */}
           <div className="p-4 border-t flex justify-between">
             <SignedOut>
-              <Button variant={"outline"}>
-                <SignInButton />
-              </Button>
+              <div className="flex items-center">
+                {isLoaded ? (
+                  <Button variant={"outline"}>
+                    <SignInButton />
+                  </Button>
+                ) : (
+                  <Loader2 className="animate-spin" />
+                )}
+              </div>
             </SignedOut>
             <SignedIn>
               <div className="flex items-center">

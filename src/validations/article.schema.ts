@@ -14,10 +14,11 @@ export const createArticleSchema = z.object({
 // Article schema type
 export type CreateArticleSchemaType = z.infer<typeof createArticleSchema>;
 
-//
+// Article filter schema
 export const filterSchema = z.object({
   page: z.string().optional(),
   perPage: z.string().optional(),
 });
 
+// Article filter schema type
 export type FilterSchemaType = z.infer<typeof filterSchema>;

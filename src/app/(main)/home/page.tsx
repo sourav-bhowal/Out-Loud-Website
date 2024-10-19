@@ -23,7 +23,7 @@ export default async function HomePage({
   // FILTERS
   const filters: FilterSchemaType = {
     page: page ?? "1",
-    perPage: perPage ?? "1",
+    perPage: perPage ?? "12",
   };
 
   return (

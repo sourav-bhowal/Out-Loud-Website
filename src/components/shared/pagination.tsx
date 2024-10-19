@@ -41,7 +41,7 @@ export const Pagination = (props: PaginationProps) => {
       <Link
         className={cn(
           "flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-card",
-          currentPage === 1 ? "pointer-events-none bg-muted-foreground" : "",
+          currentPage === 1 ? "pointer-events-none bg-muted-foreground" : "border-2 border-primary",
         )}
         href={`?page=${currentPage - 1}`}
       >
@@ -71,7 +71,7 @@ export const Pagination = (props: PaginationProps) => {
       <Link
         className={cn(
           "flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-card",
-          !hasNextPage ? "pointer-events-none bg-muted-foreground" : "",
+          !hasNextPage ? "pointer-events-none bg-muted-foreground" : "border-2 border-primary",
         )}
         href={`?page=${currentPage + 1}`}
       >
