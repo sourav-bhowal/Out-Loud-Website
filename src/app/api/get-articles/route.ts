@@ -44,7 +44,6 @@ export async function GET(req: NextRequest) {
       hasNextPage,
     };
 
-
     // RETURN ARTICLES
     return Response.json(
       {

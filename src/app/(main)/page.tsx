@@ -1,6 +1,6 @@
 import { FilterSchemaType } from "@/validations/article.schema";
 import { Metadata } from "next";
-import ArticleSection from "./ArticleSection";
+import ArticleSection from "../../components/article/ArticleSection";
 
 // METADATA
 export const metadata: Metadata = {
