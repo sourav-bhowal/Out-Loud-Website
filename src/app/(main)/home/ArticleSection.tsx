@@ -21,7 +21,7 @@ export default function ArticleSection({
     queryKey: ["articles", { page, perPage }],
     queryFn: async () => {
       const { data } = await axios.get(
-        `/api/get-articles/all-articles?page=${page}&perPage=${perPage}`
+        `https://outloud-website.vercel.app/api/get-articles/all-articles?page=${page}&perPage=${perPage}`
       );
       return data;
     },
