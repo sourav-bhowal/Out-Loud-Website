@@ -1,5 +1,4 @@
 import { ArticleModel, IArticle } from "@/models/Article.model";
-// import { currentUser } from "@clerk/nextjs/server";
 import { DBConnect } from "@/lib/db";
 import { NextRequest } from "next/server";
 
@@ -18,14 +17,6 @@ export async function GET(req: NextRequest) {
     // SKIP AND LIMIT
     const skip = (parseInt(page) - 1) * parseInt(perPage);
     const limit = parseInt(perPage);
-
-    // // CHECK IF USER IS LOGGED IN
-    // const user = await currentUser();
-
-    // // CHECK IF USER EXISTS
-    // if (!user) {
-    //   return Response.json({ error: "Unauthorized" }, { status: 401 });
-    // }
 
     // CONNECT TO DATABASE
     await DBConnect();
