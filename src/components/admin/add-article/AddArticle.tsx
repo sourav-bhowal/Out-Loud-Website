@@ -123,8 +123,8 @@ export default function AddArticleDialog({
                   <FormLabel>Content</FormLabel>
                   <FormControl>
                     <Textarea
-                      className="resize-none"
-                      placeholder="Enter the content of the event"
+                    className="h-36 resize-none"
+                      placeholder="Enter the content of the article"
                       {...field}
                     />
                   </FormControl>
@@ -149,10 +149,11 @@ export default function AddArticleDialog({
               )}
             />
 
-            <FormLabel className="mt-3">Media</FormLabel>
+            <div>
+            <FormLabel>Media</FormLabel>
             <div
               {...getRootProps()}
-              className="w-full cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-6 text-center transition hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+              className="w-full cursor-pointer mt-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center transition hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
             >
               <input {...getInputProps()} />
               {isDragActive ? (
@@ -165,6 +166,7 @@ export default function AddArticleDialog({
                   </p>
                 </>
               )}
+            </div>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
               {!!medias.length && (

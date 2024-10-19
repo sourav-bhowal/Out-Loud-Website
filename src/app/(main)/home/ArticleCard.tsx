@@ -5,7 +5,7 @@ import { ArrowRight, Clock, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { IArticle } from "@/models/Article.model";
-import placeHolderImage from "@/assets/placeholder-img.webp"
+import placeHolderImage from "@/assets/placeholder-img.webp";
 
 // PROPS INTERFACE FOR THE COMPONENT
 interface ArticleProps {
@@ -16,10 +16,15 @@ interface ArticleProps {
 // ARTICLE CARD COMPONENT
 export default function ArticleCard({ article, className }: ArticleProps) {
   return (
-    <Card className={`overflow-hidden transition-all hover:shadow-lg ${className}`}>
+    <Card
+      className={`overflow-hidden transition-all hover:shadow-lg ${className}`}
+    >
       <div className="aspect-video relative">
         <Image
-          src={article?.attachments[0]?.url || placeHolderImage}
+          src={
+            (article?.attachments[0] as { url: string })?.url ||
+            placeHolderImage
+          }
           alt={article.title}
           className="object-cover w-full h-full transition-transform hover:scale-105"
           width={800}
@@ -30,8 +35,12 @@ export default function ArticleCard({ article, className }: ArticleProps) {
         </Badge>
       </div>
       <CardContent className="p-4">
-        <h3 className="text-xl font-semibold mb-2 line-clamp-5 capitalize">{article.title}</h3>
-        <p className="text-muted-foreground mb-4 line-clamp-3">{article.content}</p>
+        <h3 className="text-xl font-semibold mb-2 line-clamp-5 capitalize">
+          {article.title}
+        </h3>
+        <p className="text-muted-foreground mb-4 line-clamp-1">
+          {article.content}
+        </p>
         <div className="flex items-center text-sm text-muted-foreground space-x-4">
           <div className="flex items-center">
             <Clock className="mr-1 h-4 w-4" />

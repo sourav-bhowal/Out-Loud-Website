@@ -4,6 +4,7 @@ import { ArticleModel } from "@/models/Article.model";
 import { createArticleSchema, CreateArticleSchemaType } from "@/validations/article.schema";
 import { currentUser } from "@clerk/nextjs/server";
 
+// CREATE ARTICLE ACTION FUNCTION
 export async function createArticle(inputValues: CreateArticleSchemaType) {
   // CHECK IF USER IS LOGGED IN
   const user = await currentUser();
@@ -24,6 +25,7 @@ export async function createArticle(inputValues: CreateArticleSchemaType) {
     content,
     userId: user.id,
     category,
+    readTime: Math.ceil(content.split(" ").length / 200),
     attachments: attachmentIds?.map((id) => id) ?? [],
   });
 
