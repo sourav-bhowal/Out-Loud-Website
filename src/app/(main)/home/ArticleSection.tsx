@@ -21,7 +21,7 @@ export default function ArticleSection({
     queryKey: ["articles", { page, perPage }],
     queryFn: async () => {
       const { data } = await axios.get(
-        `/api/get-articles/all-articles?page=${page}&perPage=${perPage}`
+        `/api/get-articles?page=${page}&perPage=${perPage}`
       );
       return data;
     },
@@ -29,9 +29,9 @@ export default function ArticleSection({
   });
 
   // TAKE OUT ALL THE DATA
-  const articles = data?.articles;
-  const hasNextPage = data?.hasNextPage;
-  const totalPages = data?.totalPages;
+  const articles = data?.data?.articles;
+  const hasNextPage = data?.data?.hasNextPage;
+  const totalPages = data?.data?.totalPages;
 
   // RETURN LOADING
   if (isFetching) {
@@ -43,7 +43,7 @@ export default function ArticleSection({
   }
 
   // RETURN ERROR
-  if (isError || !articles) {
+  if (isError) {
     return (
       <div className="flex w-full items-center justify-center">
         <div className="text-red-500">Failed to fetch articles</div>
@@ -62,7 +62,7 @@ export default function ArticleSection({
       </div>
       <div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-5">
-          {articles.map((article: IArticle, index: number) => (
+          {articles?.map((article: IArticle, index: number) => (
             <ArticleCard
               key={article.id}
               article={article}

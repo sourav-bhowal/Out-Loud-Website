@@ -44,8 +44,14 @@ export async function GET(req: NextRequest) {
       hasNextPage,
     };
 
+
     // RETURN ARTICLES
-    return Response.json(data, { status: 200 });
+    return Response.json(
+      {
+        data,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     return Response.json({ error: "Internal server error" }, { status: 500 });
