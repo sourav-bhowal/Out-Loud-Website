@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { Pagination } from "./Pagination";
 import { kyInstance } from "@/lib/ky";
-import { ArticlePage } from "@/lib/utils";
+import { ArticlePage } from "@/lib/types";
 
 // INTERFACE
 interface ArticleSectionProps {

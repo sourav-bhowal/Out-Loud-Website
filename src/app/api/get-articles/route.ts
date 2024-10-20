@@ -1,7 +1,8 @@
 import { ArticleModel } from "@/models/Article.model";
 import { DBConnect } from "@/lib/db";
 import { NextRequest } from "next/server";
-import { ArticlePage } from "@/lib/utils";
+import { ArticlePage } from "@/lib/types";
+import { redis } from "@/lib/redis";
 
 export async function GET(req: NextRequest) {
   try {
@@ -12,6 +13,15 @@ export async function GET(req: NextRequest) {
     // SKIP AND LIMIT
     const skip = (parseInt(page) - 1) * parseInt(perPage);
     const limit = parseInt(perPage);
+
+    // CHECK IF DATA IS CACHED
+    const cachedData = await redis.get(req.nextUrl.href);
+
+    // IF CACHED DATA RETURN
+    if (cachedData) {
+      console.log("Cached data");
+      return Response.json(JSON.parse(cachedData), { status: 200 });
+    }
 
     // CONNECT TO DATABASE
     await DBConnect();
@@ -38,6 +48,10 @@ export async function GET(req: NextRequest) {
       totalPages,
       hasNextPage,
     };
+    console.log("Database data");
+
+    // CACHE DATA
+    await redis.setex(req.nextUrl.href, 3600, JSON.stringify(data));
 
     // RETURN ARTICLES
     return Response.json(data, { status: 200 });

@@ -84,24 +84,6 @@ export default function NavSideBar() {
             </div>
           </div>
 
-          {/* User Profile */}
-          {/* <div className="p-4 border-b">
-            <div className="flex items-center space-x-4">
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-              <div>
-                <p className="font-medium">John Doe</p>
-                <p className="text-sm text-muted-foreground">
-                  john@example.com
-                </p>
-              </div>
-            </div>
-          </div> */}
-
           {/* Navigation */}
           <ScrollArea className="flex-grow py-4">
             <nav className="space-y-2 px-4">
@@ -144,12 +126,6 @@ export default function NavSideBar() {
                   <Loader2 className="animate-spin" />
                 )}
               </div>
-              {/* <div>
-                <p className="font-medium text-sm">{user?.username}</p>
-                <p className="text-sm text-muted-foreground">
-                  {user?.primaryEmailAddress?.emailAddress}
-                </p>
-              </div> */}
             </SignedIn>
             <ThemeToggler />
           </div>
