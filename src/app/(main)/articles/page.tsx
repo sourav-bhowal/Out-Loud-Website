@@ -1,6 +1,6 @@
 import { FilterSchemaType } from "@/validations/article.schema";
 import { Metadata } from "next";
-import ArticleSection from "../../components/article/ArticleSection";
+import ArticleSection from "../../../components/article/ArticleSection";
 
 // METADATA
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 // INTERFACE FOR HOMEPAGE
-interface HomePageProps {
+interface ArticlePageProps {
   searchParams: {
     page?: string;
     perPage?: string;
@@ -17,9 +17,9 @@ interface HomePageProps {
 }
 
 // HOME PAGE
-export default async function HomePage({
+export default async function ArticlePage({
   searchParams: { page, perPage },
-}: HomePageProps) {
+}: ArticlePageProps) {
   // FILTERS
   const filters: FilterSchemaType = {
     page: page ?? "1",

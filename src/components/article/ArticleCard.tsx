@@ -17,7 +17,7 @@ interface ArticleProps {
 export default function ArticleCard({ article, className }: ArticleProps) {
   return (
     <Card
-      className={`overflow-hidden transition-all hover:shadow-lg ${className}`}
+      className={`overflow-hidden transition-all hover:shadow-md shadow-blue-500/50 hover:shadow-blue-500/75 ${className}`}
     >
       <div className="aspect-video relative">
         <Image
@@ -54,7 +54,7 @@ export default function ArticleCard({ article, className }: ArticleProps) {
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button variant="ghost" className="ml-auto group" asChild>
-          <Link href={`/home/article/${article._id}`}>
+          <Link href={`/articles/${article._id}`}>
             Read More
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>

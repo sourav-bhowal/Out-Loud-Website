@@ -1,10 +1,14 @@
 "use client";
 import {
-  HelpCircle,
+  AreaChartIcon,
+  CircleHelpIcon,
+  ContactRound,
+  GalleryHorizontal,
   Home,
   LayoutDashboard,
   Loader2,
   Menu,
+  StarsIcon,
   X,
 } from "lucide-react";
 import { ThemeToggler } from "./ThemeToggler";
@@ -24,9 +28,13 @@ import { usePathname } from "next/navigation";
 
 // NAVBAR ITEMS
 const navItems = [
-  { icon: Home, label: "Home", href: "/home" },
-  { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-  { icon: HelpCircle, label: "Contact Us", href: "/contact-us" },
+  { icon: Home, label: "Home", href: "/" },
+  { icon: AreaChartIcon, label: "Articles", href: "/articles" },
+  { icon: StarsIcon, label: "Events", href: "/events" },
+  { icon: GalleryHorizontal, label: "Gallery", href: "/gallery" },
+  { icon: LayoutDashboard, label: "Admin", href: "/admin" },
+  { icon: ContactRound, label: "Contact Us", href: "/contact-us" },
+  { icon: CircleHelpIcon, label: "About Us", href: "/about-us" },
 ];
 
 // NABAR COMPONENT
@@ -47,7 +55,7 @@ export default function NavSideBar() {
     <main>
       {/* Mobile toggle button */}
       <div className="md:hidden flex items-center justify-between p-4 border-b">
-        <h2 className="text-xl uppercase font-bold text-primary">Out Loud</h2>
+        <h2 className="text-3xl uppercase font-bold text-primary">Out Loud</h2>
         <Button variant="outline" size="icon" onClick={toggleSidebar}>
           {isSidebarOpen ? (
             <X className="h-4 w-4" />
@@ -72,7 +80,9 @@ export default function NavSideBar() {
                 alt="Company Logo"
                 className="h-8 w-auto"
               /> */}
-              <span className="text-2xl font-bold tracking-wide text-primary uppercase">Out Loud</span>
+              <span className="text-2xl font-bold tracking-wide text-primary uppercase">
+                Out Loud
+              </span>
             </div>
           </div>
 
