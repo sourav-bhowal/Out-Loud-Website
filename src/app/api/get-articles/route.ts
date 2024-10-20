@@ -2,8 +2,8 @@ import { ArticleModel } from "@/models/Article.model";
 import { DBConnect } from "@/lib/db";
 import { NextRequest } from "next/server";
 import { ArticlePage } from "@/lib/types";
-import { redis } from "@/lib/redis";
-
+// import { redis } from "@/lib/redis";
+// CACHE KEY
 export async function GET(req: NextRequest) {
   try {
     // SEARCH PARAMS
@@ -14,14 +14,16 @@ export async function GET(req: NextRequest) {
     const skip = (parseInt(page) - 1) * parseInt(perPage);
     const limit = parseInt(perPage);
 
+    // const cacheKey = `articles:${page}`;
+
     // CHECK IF DATA IS CACHED
-    const cachedData = await redis.get(req.nextUrl.href);
+    // const cachedData = await redis.get(cacheKey);
 
     // IF CACHED DATA RETURN
-    if (cachedData) {
-      console.log("Cached data");
-      return Response.json(JSON.parse(cachedData), { status: 200 });
-    }
+    // if (cachedData) {
+    //   console.log("Cached data");
+    //   return Response.json(JSON.parse(cachedData), { status: 200 });
+    // }
 
     // CONNECT TO DATABASE
     await DBConnect();
@@ -48,10 +50,10 @@ export async function GET(req: NextRequest) {
       totalPages,
       hasNextPage,
     };
-    console.log("Database data");
+    // console.log("Database data");
 
     // CACHE DATA
-    await redis.setex(req.nextUrl.href, 3600, JSON.stringify(data));
+    // await redis.setex(cacheKey, 300, JSON.stringify(data));
 
     // RETURN ARTICLES
     return Response.json(data, { status: 200 });

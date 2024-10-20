@@ -5,7 +5,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { ArticlePage } from "@/lib/utils";
+import { ArticlePage } from "@/lib/types";
 
 // ADD ARTICLE MUTATION
 export function useCreateArticleMutation() {
@@ -36,14 +36,6 @@ export function useCreateArticleMutation() {
           ...oldData,
           articles: newArticles,
         };
-      });
-
-      // INVALIDATE QUERIES
-      queryClient.invalidateQueries({
-        queryKey: queryFilters.queryKey,
-        predicate: (query) => {
-          return query.queryKey[0] === "articles";
-        },
       });
 
       // TOAST SUCCESS
