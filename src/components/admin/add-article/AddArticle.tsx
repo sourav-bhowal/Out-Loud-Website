@@ -95,7 +95,7 @@ export default function AddArticleDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle>Add an Upcoming Event</DialogTitle>
+          <DialogTitle>Add an Article</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -161,7 +161,7 @@ export default function AddArticleDialog({
               ) : (
                 <>
                   <PlusCircle className="mx-auto h-8 w-8 text-primary" />
-                  <p className="text-gray-500">
+                  <p className="text-gray-500 mt-2">
                     Drag and drop files here, or click to select files
                   </p>
                 </>
@@ -212,6 +212,7 @@ export default function AddArticleDialog({
               <Button
                 disabled={isUploading || !form.formState.isValid}
                 type="submit"
+                className="font-bold"
               >
                 {mutation.isPending ? (
                   <Loader2 className="h-5 w-5 animate-spin" />

@@ -48,7 +48,7 @@ export default function ArticleCard({ article, className }: ArticleProps) {
           </div>
           <div className="flex items-center">
             <Eye className="mr-1 h-4 w-4" />
-            {article.readTime} read
+            {article.readTime} min read
           </div>
         </div>
       </CardContent>

@@ -1,6 +1,6 @@
 import { FilterSchemaType } from "@/validations/article.schema";
 import { Metadata } from "next";
-import ArticleSection from "../../../components/article/ArticleSection";
+import ArticleSection from "../../../components/articles/ArticleSection";
 
 // METADATA
 export const metadata: Metadata = {
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 // INTERFACE FOR HOMEPAGE
 interface ArticlePageProps {
   searchParams: {
-    page?: string;
-    perPage?: string;
+    page: string;
+    perPage: string;
   };
 }
 

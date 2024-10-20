@@ -1,28 +1,52 @@
 import { useToast } from "@/hooks/use-toast";
 import { createArticle } from "./actions";
 import {
+  QueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-// import { useRouter } from "next/navigation";
+import { ArticlePage } from "@/lib/utils";
 
 // ADD ARTICLE MUTATION
 export function useCreateArticleMutation() {
   // TOAST
   const { toast } = useToast();
+
   // QUERY CLIENT
   const queryClient = useQueryClient();
-  // ROUTER
-//   const router = useRouter();
 
   // CREATE ARTICLE MUTATION
   const mutation = useMutation({
     mutationFn: createArticle,
-    onSuccess: () => {
-      // Invalidate query
-      queryClient.invalidateQueries({
-        queryKey: ["articles"],
+    onSuccess: async (newArticle) => {
+      // QUERY FILTERS
+      const queryFilters: QueryFilters = {
+        queryKey: ["articles", { page: "1" }],
+      };
+
+      // CANCEL QUERIES
+      await queryClient.cancelQueries(queryFilters);
+
+      // OPTIMISTIC UPDATE
+      queryClient.setQueriesData<ArticlePage>(queryFilters, (oldData) => {
+        if (!oldData) return;
+        const oldArticles = oldData.articles;
+        const newArticles = [newArticle, ...oldArticles].slice(0, 12);
+        return {
+          ...oldData,
+          articles: newArticles,
+        };
       });
+
+      // INVALIDATE QUERIES
+      queryClient.invalidateQueries({
+        queryKey: queryFilters.queryKey,
+        predicate: (query) => {
+          return query.queryKey[0] === "articles";
+        },
+      });
+
+      // TOAST SUCCESS
       toast({
         title: "Article created successfully",
         variant: "default",

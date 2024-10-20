@@ -16,8 +16,8 @@ export type CreateArticleSchemaType = z.infer<typeof createArticleSchema>;
 
 // Article filter schema
 export const filterSchema = z.object({
-  page: z.string().optional(),
-  perPage: z.string().optional(),
+  page: z.string(),
+  perPage: z.string(),
 });
 
 // Article filter schema type

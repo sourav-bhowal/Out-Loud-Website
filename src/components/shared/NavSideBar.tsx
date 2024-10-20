@@ -14,7 +14,7 @@ import {
 import { ThemeToggler } from "./ThemeToggler";
 import { useState } from "react";
 import { Button } from "../ui/button";
-// import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { ScrollArea } from "../ui/scroll-area";
 import {
@@ -25,6 +25,7 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import Logo from "@/assets/logo.png";
 
 // NAVBAR ITEMS
 const navItems = [
@@ -55,12 +56,13 @@ export default function NavSideBar() {
     <main>
       {/* Mobile toggle button */}
       <div className="md:hidden flex items-center justify-between p-4 border-b">
-        <h2 className="text-3xl uppercase font-bold text-primary">Out Loud</h2>
+        {/* <h2 className="text-3xl uppercase font-bold text-primary">Out Loud</h2> */}
+        <Image src={Logo} alt="Company Logo" className="h-10 w-auto" />
         <Button variant="outline" size="icon" onClick={toggleSidebar}>
           {isSidebarOpen ? (
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
           ) : (
-            <Menu className="h-4 w-4" />
+            <Menu className="h-5 w-5" />
           )}
         </Button>
       </div>
@@ -74,12 +76,8 @@ export default function NavSideBar() {
         <div className="flex flex-col h-full">
           {/* Company Logo */}
           <div className="p-4 border-b md:flex hidden justify-center items-center">
-            <div>
-              {/* <Image
-                src="/placeholder.svg?height=40&width=40&text=Logo"
-                alt="Company Logo"
-                className="h-8 w-auto"
-              /> */}
+            <div className="flex items-center justify-around w-full">
+              <Image src={Logo} alt="Company Logo" className="h-8 w-auto" />
               <span className="text-2xl font-bold tracking-wide text-primary uppercase">
                 Out Loud
               </span>
@@ -113,7 +111,8 @@ export default function NavSideBar() {
                   href={item.href}
                   className={`flex items-center space-x-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md p-2 transition-colors
                     ${
-                      pathname === item.href && "text-primary bg-accent" // Highlight active page
+                      pathname === item.href &&
+                      "text-primary bg-accent hover:bg-none hover:text-primary" // Highlight active page
                     }`}
                   onClick={() => setIsSidebarOpen(false)}
                 >
