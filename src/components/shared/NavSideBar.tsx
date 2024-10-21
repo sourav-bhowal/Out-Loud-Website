@@ -4,7 +4,7 @@ import {
   CircleHelpIcon,
   ContactRound,
   GalleryHorizontal,
-  Home,
+  // Home,
   LayoutDashboard,
   Loader2,
   Menu,
