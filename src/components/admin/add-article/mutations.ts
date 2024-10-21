@@ -1,6 +1,7 @@
 import { useToast } from "@/hooks/use-toast";
 import { createArticle } from "./actions";
 import {
+  InfiniteData,
   QueryFilters,
   useMutation,
   useQueryClient,
@@ -21,22 +22,37 @@ export function useCreateArticleMutation() {
     onSuccess: async (newArticle) => {
       // QUERY FILTERS
       const queryFilters: QueryFilters = {
-        queryKey: ["articles", { page: "1" }],
+        queryKey: ["articles"],
       };
 
       // CANCEL QUERIES
       await queryClient.cancelQueries(queryFilters);
 
       // OPTIMISTIC UPDATE
-      queryClient.setQueriesData<ArticlePage>(queryFilters, (oldData) => {
-        if (!oldData) return;
-        const oldArticles = oldData.articles;
-        const newArticles = [newArticle, ...oldArticles].slice(0, 12);
-        return {
-          ...oldData,
-          articles: newArticles,
-        };
-      });
+      queryClient.setQueriesData<InfiniteData<ArticlePage>>(
+        queryFilters,
+        // GET OLD DATA
+        (oldData) => {
+          // TAKE FIRST PAGE FROM OLD DATA
+          const firstPage = oldData?.pages[0];
+          // IF FIRST PAGE EXISTS THEN ADD NEW ARTICLE TO IT
+          if (firstPage) {
+            return {
+              // PAGE PARAMS
+              pageParams: oldData?.pageParams,
+              // PAGES ARRAY WITH NEW ARTICLE
+              pages: [
+                {
+                  ...firstPage,
+                  articles: [newArticle, ...firstPage.articles],
+                },
+                // SLICE OLD DATA PAGES ARRAY FROM SECOND INDEX
+                ...oldData?.pages.slice(1),
+              ],
+            };
+          }
+        }
+      );
 
       // TOAST SUCCESS
       toast({

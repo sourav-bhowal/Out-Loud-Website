@@ -1,50 +1,56 @@
 "use client";
 import ArticleCard from "./ArticleCard";
 import { IArticle } from "@/models/Article.model";
-import { FilterSchemaType } from "@/validations/article.schema";
-import { useQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
-import { Pagination } from "./Pagination";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { kyInstance } from "@/lib/ky";
 import { ArticlePage } from "@/lib/types";
-
-// INTERFACE
-interface ArticleSectionProps {
-  filters: FilterSchemaType;
-}
+import { Loader } from "../shared/Loader";
+import InfiniteScrollContainer from "../shared/InfiniteScrollContainer";
 
 // ARTICLE SECTION COMPONENT
-export default function ArticleSection({
-  filters: { page, perPage },
-}: ArticleSectionProps) {
-  // USE QUERY HOOK TO FETCH ARTICLES
-  const { data, isFetching, isError } = useQuery({
-    queryKey: ["articles", { page }],
-    queryFn: () =>
+export default function ArticleSection() {
+  // GET ARTICLES USING INFINITE SCROLL
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["articles"],
+    queryFn: ({ pageParam }) => (
+      console.log(pageParam),
       kyInstance
-        .get("/api/get-articles", { searchParams: { page, perPage } })
-        .json<ArticlePage>(),
+        .get("/api/get-articles", {
+          searchParams: { page: pageParam, perPage: 12 },
+        })
+        .json<ArticlePage>()
+    ),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.hasNextPage) {
+        return allPages.length + 1;
+      }
+    },
     staleTime: 1000 * 60 * 5,
   });
-
   console.log(data);
 
-  // TAKE OUT ALL THE DATA
-  const articles = data?.articles;
-  const hasNextPage = data?.hasNextPage;
-  const totalPages = data?.totalPages;
+  // TAKE ARTICLES FROM DATA
+  const articles = data?.pages.flatMap((page) => page.articles);
 
   // RETURN LOADING
-  if (isFetching) {
+  if (status === "pending") {
     return (
-      <div className="flex w-full items-center justify-center">
-        <Loader2 className="w-10 h-10 animate-spin" />
+      <div className="flex justify-center min-h-[80vh]">
+        <Loader />
       </div>
     );
   }
 
   // RETURN ERROR
-  if (isError) {
+  if (status === "error") {
     return (
       <div className="flex w-full items-center justify-center">
         <div className="text-red-500">Failed to fetch articles</div>
@@ -52,7 +58,7 @@ export default function ArticleSection({
     );
   }
 
-  if (!articles?.length) {
+  if (!articles?.length && status === "success" && !hasNextPage) {
     return (
       <div className="flex w-full items-center justify-center">
         <div className="text-muted-foreground">No articles found</div>
@@ -61,31 +67,26 @@ export default function ArticleSection({
   }
 
   return (
-    <div className="w-full">
-      <div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-5">
-          {articles?.map((article: IArticle, index: number) => (
-            <ArticleCard
-              key={article.id}
-              article={article}
-              className={
-                index === 0
-                  ? "md:col-span-2 md:row-span-2"
-                  : index === 3
-                  ? "md:col-span-2"
-                  : ""
-              }
-            />
-          ))}
-        </div>
+    <InfiniteScrollContainer
+      className="space-y-5"
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
+    >
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-5">
+        {articles?.map((article: IArticle, index: number) => (
+          <ArticleCard
+            key={index}
+            article={article}
+            className={
+              index === 0
+                ? "md:col-span-2 md:row-span-2"
+                : index === 3
+                ? "md:col-span-2"
+                : ""
+            }
+          />
+        ))}
+        {isFetchingNextPage && <Loader />}
       </div>
-      <div className="md:mt-14 mt-10">
-        <Pagination
-          hasNextPage={hasNextPage}
-          totalPages={totalPages}
-          page={page}
-        />
-      </div>
-    </div>
+    </InfiniteScrollContainer>
   );
 }

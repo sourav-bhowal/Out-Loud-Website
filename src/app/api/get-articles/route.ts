@@ -51,7 +51,6 @@ export async function GET(req: NextRequest) {
       hasNextPage,
     };
     // console.log("Database data");
-
     // CACHE DATA
     // await redis.setex(cacheKey, 300, JSON.stringify(data));
 
