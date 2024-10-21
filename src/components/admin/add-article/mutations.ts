@@ -37,6 +37,7 @@ export function useCreateArticleMutation() {
           const firstPage = oldData?.pages[0];
           // IF FIRST PAGE EXISTS THEN ADD NEW ARTICLE TO IT
           if (firstPage) {
+            console.log("First page exists", newArticle);
             return {
               // PAGE PARAMS
               pageParams: oldData?.pageParams,

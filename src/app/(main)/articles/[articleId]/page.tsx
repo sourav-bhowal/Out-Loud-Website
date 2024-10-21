@@ -1,8 +1,11 @@
-import ErrorPage from "@/app/error"; 
+import ErrorPage from "@/app/error";
 import { DBConnect } from "@/lib/db";
 import { ArticleModel, IArticle } from "@/models/Article.model";
 import { Metadata } from "next";
 import { cache } from "react";
+import Card from "./Card";
+import { IAttachment } from "@/models/Attachment.model";
+import ArticleCard from "@/components/articles/ArticleCard";
 
 // INTERFACE FOR ARTICLE
 interface ArticlePageProps {
@@ -25,6 +28,23 @@ const fetchArticle = cache(async (articleId: string) => {
   return article;
 });
 
+// RELATED ARTICLES
+const fetchRelatedArticles = cache(async (articleId: string) => {
+  // Connect to Database
+  await DBConnect();
+  // Fetch Articles
+  const articles = await ArticleModel.find({
+    category: (await fetchArticle(articleId))?.category,
+  })
+    .limit(5)
+    .populate("attachments");
+  // .where({
+  //   _id: { $ne: articleId },
+  // });
+  // Return Articles
+  return articles;
+});
+
 // Generate Meta Data for User Page
 export async function generateMetadata({
   params,
@@ -38,28 +58,32 @@ export async function generateMetadata({
 }
 
 // ARTICLE PAGE
-export default async function Article({
-  params
-}: ArticlePageProps) {
+export default async function Article({ params }: ArticlePageProps) {
   // Fetch Article
   const article = await fetchArticle(params.articleId);
+  // Fetch Related Articles
+  const relatedArticles = await fetchRelatedArticles(params.articleId);
   return (
-    <div className="w-full flex">
-      <div className="">
-        <ArticleCard article={article!} />
+    <div className="w-full flex lg:flex-row flex-col gap-5">
+      <div className="lg:w-[70%]">
+        <Card
+          article={
+            article as IArticle & {
+              attachments: IAttachment[];
+            }
+          }
+        />
+      </div>
+      <div className="lg:w-[30%]">
+        <h2 className="text-center mb-3 bg-card rounded-sm font-semibold text-2xl tracking-wide p-4">
+          Related Articles
+        </h2>
+        <div>
+          {relatedArticles.map((article, index) => (
+            <ArticleCard key={index} article={article} />
+          ))}
+        </div>
       </div>
     </div>
   );
-}
-
-interface ArticleCardProps {
-  article: IArticle;
-}
-
-const ArticleCard = ({ article }: ArticleCardProps) => {
-  return (
-    <>
-    {article.title}
-    </>
-  )
 }

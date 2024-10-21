@@ -11,10 +11,15 @@ import placeHolderImage from "@/assets/placeholder-img.webp";
 interface ArticleProps {
   article: IArticle;
   className?: string;
+  isFirstArticle?: boolean;
 }
 
 // ARTICLE CARD COMPONENT
-export default function ArticleCard({ article, className }: ArticleProps) {
+export default function ArticleCard({
+  article,
+  className,
+  isFirstArticle,
+}: ArticleProps) {
   return (
     <Card
       className={`overflow-hidden transition-all hover:shadow-md shadow-blue-500/50 hover:shadow-blue-500/75 ${className}`}
@@ -38,7 +43,11 @@ export default function ArticleCard({ article, className }: ArticleProps) {
         <h3 className="text-xl font-semibold mb-2 line-clamp-5 capitalize">
           {article.title}
         </h3>
-        <p className="text-muted-foreground mb-4 line-clamp-1">
+        <p
+          className={`text-muted-foreground mb-4 ${
+            isFirstArticle ? "line-clamp-6" : "line-clamp-1"
+          }`}
+        >
           {article.content}
         </p>
         <div className="flex items-center text-sm text-muted-foreground space-x-4">

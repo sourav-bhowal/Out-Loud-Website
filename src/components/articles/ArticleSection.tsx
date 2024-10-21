@@ -20,7 +20,7 @@ export default function ArticleSection() {
   } = useInfiniteQuery({
     queryKey: ["articles"],
     queryFn: ({ pageParam }) => (
-      console.log(pageParam),
+      // console.log(pageParam),
       kyInstance
         .get("/api/get-articles", {
           searchParams: { page: pageParam, perPage: 12 },
@@ -35,7 +35,7 @@ export default function ArticleSection() {
     },
     staleTime: 1000 * 60 * 5,
   });
-  console.log(data);
+  // console.log(data);
 
   // TAKE ARTICLES FROM DATA
   const articles = data?.pages.flatMap((page) => page.articles);
@@ -76,6 +76,7 @@ export default function ArticleSection() {
           <ArticleCard
             key={index}
             article={article}
+            isFirstArticle={index === 0}
             className={
               index === 0
                 ? "md:col-span-2 md:row-span-2"

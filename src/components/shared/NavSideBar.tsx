@@ -29,7 +29,7 @@ import Logo from "@/assets/logo.png";
 
 // NAVBAR ITEMS
 const navItems = [
-  { icon: Home, label: "Home", href: "/" },
+  // { icon: Home, label: "Home", href: "/" },
   { icon: AreaChartIcon, label: "Articles", href: "/articles" },
   { icon: StarsIcon, label: "Events", href: "/events" },
   { icon: GalleryHorizontal, label: "Gallery", href: "/gallery" },
@@ -55,7 +55,7 @@ export default function NavSideBar() {
   return (
     <main>
       {/* Mobile toggle button */}
-      <div className="md:hidden flex items-center justify-between p-4 border-b">
+      <Link href={"/"} className="md:hidden flex items-center justify-between p-4 border-b">
         {/* <h2 className="text-3xl uppercase font-bold text-primary">Out Loud</h2> */}
         <Image src={Logo} alt="Company Logo" className="h-10 w-auto" />
         <Button variant="outline" size="icon" onClick={toggleSidebar}>
@@ -65,7 +65,7 @@ export default function NavSideBar() {
             <Menu className="h-5 w-5" />
           )}
         </Button>
-      </div>
+      </Link>
 
       {/* Sidebar */}
       <div
@@ -73,7 +73,7 @@ export default function NavSideBar() {
           isSidebarOpen ? "-translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
-        <div className="flex flex-col h-full">
+        <Link href={"/"} className="flex flex-col h-full">
           {/* Company Logo */}
           <div className="p-4 border-b md:flex hidden justify-center items-center">
             <div className="flex items-center justify-around w-full">
@@ -93,7 +93,7 @@ export default function NavSideBar() {
                   href={item.href}
                   className={`flex items-center space-x-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md p-2 transition-colors
                     ${
-                      pathname === item.href &&
+                      (pathname === item.href || pathname.includes(`${item.href}`)) &&
                       "text-primary bg-accent hover:bg-none hover:text-primary" // Highlight active page
                     }`}
                   onClick={() => setIsSidebarOpen(false)}
@@ -129,7 +129,7 @@ export default function NavSideBar() {
             </SignedIn>
             <ThemeToggler />
           </div>
-        </div>
+        </Link>
       </div>
     </main>
   );

@@ -43,7 +43,12 @@ export async function createArticle(inputValues: CreateArticleSchemaType) {
   });
 
   // SAVE ARTICLE
-  const newArticle = await article.save();
+  const savedArticle = await article.save();
+
+  // POPULATE ARTICLE
+  const newArticle = await ArticleModel.findById(savedArticle._id).populate("attachments");
+
+  // console.log("Article created", newArticle);
 
   // RETURN ARTICLE
   return JSON.parse(JSON.stringify(newArticle));
