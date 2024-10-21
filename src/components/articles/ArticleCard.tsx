@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IArticle } from "@/models/Article.model";
 import placeHolderImage from "@/assets/placeholder-img.webp";
+import { formatDate } from "@/lib/utils";
 
 // PROPS INTERFACE FOR THE COMPONENT
 interface ArticleProps {
@@ -53,7 +54,7 @@ export default function ArticleCard({
         <div className="flex items-center text-sm text-muted-foreground space-x-4">
           <div className="flex items-center">
             <Clock className="mr-1 h-4 w-4" />
-            {new Date(article.createdAt).toDateString()}
+            {formatDate(article.createdAt)}
           </div>
           <div className="flex items-center">
             <Eye className="mr-1 h-4 w-4" />

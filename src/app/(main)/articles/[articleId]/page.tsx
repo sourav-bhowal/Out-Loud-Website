@@ -50,7 +50,8 @@ export async function generateMetadata({
   params,
 }: ArticlePageProps): Promise<Metadata> {
   // Fetch Article
-  const article = await fetchArticle(params.articleId);
+  const {articleId} = await params;
+  const article = await fetchArticle(articleId);
   // Return Meta Data
   return {
     title: `${article?.title.slice(0, 10)}`,
@@ -59,10 +60,11 @@ export async function generateMetadata({
 
 // ARTICLE PAGE
 export default async function Article({ params }: ArticlePageProps) {
+  const {articleId} = await params;
   // Fetch Article
-  const article = await fetchArticle(params.articleId);
+  const article = await fetchArticle(articleId);
   // Fetch Related Articles
-  const relatedArticles = await fetchRelatedArticles(params.articleId);
+  const relatedArticles = await fetchRelatedArticles(articleId);
   return (
     <div className="w-full flex lg:flex-row flex-col gap-5">
       <div className="lg:w-[70%]">
@@ -78,7 +80,7 @@ export default async function Article({ params }: ArticlePageProps) {
         <h2 className="text-center mb-3 bg-card rounded-sm font-semibold text-2xl tracking-wide p-4">
           Related Articles
         </h2>
-        <div>
+        <div className="space-y-5">
           {relatedArticles.map((article, index) => (
             <ArticleCard key={index} article={article} />
           ))}
