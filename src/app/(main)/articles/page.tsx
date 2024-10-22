@@ -4,7 +4,6 @@ import ArticleSection from "@/components/articles/ArticleSection";
 // METADATA
 export const metadata: Metadata = {
   title: "Articles",
-  description: "A articles and blog site",
 };
 
 // HOME PAGE

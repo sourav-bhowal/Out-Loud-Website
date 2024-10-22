@@ -6,6 +6,7 @@ import { kyInstance } from "@/lib/ky";
 import { ArticlePage } from "@/lib/types";
 import { Loader } from "../shared/Loader";
 import InfiniteScrollContainer from "../shared/InfiniteScrollContainer";
+import { Loader2 } from "lucide-react";
 
 // ARTICLE SECTION COMPONENT
 export default function ArticleSection() {
@@ -19,14 +20,13 @@ export default function ArticleSection() {
     status,
   } = useInfiniteQuery({
     queryKey: ["articles"],
-    queryFn: ({ pageParam }) => (
+    queryFn: async ({ pageParam }) =>
       // console.log(pageParam),
-      kyInstance
+      await kyInstance
         .get("/api/get-articles", {
           searchParams: { page: pageParam, perPage: 12 },
         })
-        .json<ArticlePage>()
-    ),
+        .json<ArticlePage>(),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.hasNextPage) {
@@ -86,7 +86,7 @@ export default function ArticleSection() {
             }
           />
         ))}
-        {isFetchingNextPage && <Loader />}
+        {isFetchingNextPage && <Loader2 className="animate-spin" />}
       </div>
     </InfiniteScrollContainer>
   );
