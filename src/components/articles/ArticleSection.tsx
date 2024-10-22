@@ -20,9 +20,8 @@ export default function ArticleSection() {
     status,
   } = useInfiniteQuery({
     queryKey: ["articles"],
-    queryFn: async ({ pageParam }) =>
-      // console.log(pageParam),
-      await kyInstance
+    queryFn: ({ pageParam }) =>
+      kyInstance
         .get(`/api/get-articles`, {
           searchParams: { page: pageParam, perPage: 12 },
         })
@@ -35,7 +34,6 @@ export default function ArticleSection() {
     },
     staleTime: 1000 * 60 * 5,
   });
-  // console.log(data);
 
   // TAKE ARTICLES FROM DATA
   const articles = data?.pages.flatMap((page) => page.articles);
