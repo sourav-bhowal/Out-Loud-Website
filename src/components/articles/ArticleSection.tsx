@@ -23,7 +23,7 @@ export default function ArticleSection() {
     queryFn: async ({ pageParam }) =>
       // console.log(pageParam),
       await kyInstance
-        .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/get-articles`, {
+        .get(`/api/get-articles`, {
           searchParams: { page: pageParam, perPage: 12 },
         })
         .json<ArticlePage>(),
