@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   title: "About Us",
 };
 
-
 export default function AboutUsPage() {
   return (
     <div className="min-h-screen bg-card rounded-md">
@@ -24,11 +23,13 @@ export default function AboutUsPage() {
           <h2 className="text-4xl font-extrabold text-primary mb-4">
             About Us
           </h2>
-          <p className="text-xl max-w-4xl mx-auto">
-            We&apos;re a passionate team dedicated to creating innovative
-            solutions that make a difference. Our mission is to empower
-            businesses and individuals through cutting-edge technology and
-            exceptional service.
+          <p className="text-lg max-w-5xl mx-auto">
+            At Out Loud, we are dedicated to fostering a vibrant culture of
+            intellectual discourse and artistic expression among college and
+            university students. We aim to cultivate a spirit of fine arts, inspiring
+            students to explore their passions and engage with the world around
+            them. Join us in celebrating the power of words and art to transform
+            ideas and ignite change.
           </p>
         </section>
 
@@ -38,11 +39,15 @@ export default function AboutUsPage() {
           </h2>
 
           <p className="text-lg leading-relaxed text-center max-w-6xl">
-            At Our Company, we strive to revolutionize the industry by
-            delivering unparalleled value to our clients. We believe in
-            fostering innovation, embracing challenges, and continuously pushing
-            the boundaries of what&apos;s possible. Our commitment to excellence
-            and customer satisfaction drives everything we do.
+            At the heart of our mission is the belief that meaningful dialogue
+            and creative expression are essential to personal and societal
+            growth. We are committed to fostering a dynamic culture of debate on
+            significant national and international issues, helping college and
+            university students develop critical thinking and effective
+            communication skills. Additionally, we seek to inspire a passion for
+            poetry, literary creativity, and the fine arts, offering students
+            the opportunity to explore and express their talents in a supportive
+            and enriching environment.
           </p>
         </section>
 

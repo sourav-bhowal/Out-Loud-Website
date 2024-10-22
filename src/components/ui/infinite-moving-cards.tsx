@@ -93,7 +93,7 @@ export const InfiniteMovingCards = ({
         {items.map((member) => (
           <Card
             key={member.name}
-            className="flex-shrink-0 w-[300px] overflow-hidden"
+            className="flex-shrink-0 w-72 overflow-hidden shadow-sm shadow-primary"
           >
             <Image
               src={Logo}

@@ -84,8 +84,8 @@ export default function ArticleSection() {
             }
           />
         ))}
-        {isFetchingNextPage && <Loader2 className="animate-spin mx-auto my-3" />}
       </div>
+      {isFetchingNextPage && <Loader2 className="animate-spin my-3 mx-auto" />}
     </InfiniteScrollContainer>
   );
 }
