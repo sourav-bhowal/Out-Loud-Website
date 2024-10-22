@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <div className="flex flex-col">
       <NavSideBar />
-      <main className="flex-1 md:ml-64 p-4">{children}</main>
+      <main className="flex-1 md:ml-64 md:p-4 p-2">{children}</main>
       {/* <div className="absolute w-full">
         <FloatingDockDemo />
       </div> */}
