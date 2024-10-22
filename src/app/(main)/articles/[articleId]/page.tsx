@@ -6,12 +6,11 @@ import { cache } from "react";
 import Card from "./Card";
 import { IAttachment } from "@/models/Attachment.model";
 import ArticleCard from "@/components/articles/ArticleCard";
+// import { headers } from "next/headers";
 
 // INTERFACE FOR ARTICLE
 interface ArticlePageProps {
-  params: {
-    articleId: string;
-  };
+  params: Promise<{ articleId: string }>;
 }
 
 // FETCH ARTICLE DATA
