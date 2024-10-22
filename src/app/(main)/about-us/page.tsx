@@ -1,7 +1,14 @@
 import { teamMembers } from "@/app/constants/team-members";
 import { Button } from "@/components/ui/button";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { Metadata } from "next";
 import Link from "next/link";
+
+// METADATA
+export const metadata: Metadata = {
+  title: "About Us",
+};
+
 
 export default function AboutUsPage() {
   return (
