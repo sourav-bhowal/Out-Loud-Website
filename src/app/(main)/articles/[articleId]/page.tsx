@@ -35,10 +35,10 @@ const fetchRelatedArticles = cache(async (articleId: string) => {
     category: (await fetchArticle(articleId))?.category,
   })
     .limit(5)
-    .populate("attachments");
-  // .where({
-  //   _id: { $ne: articleId },
-  // });
+    .populate("attachments")
+    .where({
+      _id: { $ne: articleId },
+    });
   // Return Articles
   return articles;
 });
@@ -48,7 +48,7 @@ export async function generateMetadata({
   params,
 }: ArticlePageProps): Promise<Metadata> {
   // Fetch Article
-  const {articleId} = await params;
+  const { articleId } = await params;
   const article = await fetchArticle(articleId);
   // Return Meta Data
   return {
@@ -58,7 +58,7 @@ export async function generateMetadata({
 
 // ARTICLE PAGE
 export default async function Article({ params }: ArticlePageProps) {
-  const {articleId} = await params;
+  const { articleId } = await params;
   // Fetch Article
   const article = await fetchArticle(articleId);
   // Fetch Related Articles
