@@ -13,8 +13,8 @@ export default async function EventPage() {
   return (
     <main>
       <h2 className="text-2xl uppercase font-semibold tracking-wide">Events</h2>
-      <Tabs>
-        <TabsList className="rounded-sm mt-3">
+      <Tabs defaultValue="upcoming-events">
+        <TabsList className="rounded-sm mt-2">
           <TabsTrigger
             value="upcoming-events"
             className="flex-1 text-center rounded-[10px]"
