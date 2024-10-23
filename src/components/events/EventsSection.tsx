@@ -1,16 +1,16 @@
 "use client";
-import ArticleCard from "./ArticleCard";
-import { IArticle } from "@/models/Article.model";
+import { IEvent } from "@/models/Event.model";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { kyInstance } from "@/lib/ky";
-import { ArticlePage } from "@/lib/types";
+import { EventPage } from "@/lib/types";
 import { Loader } from "../shared/Loader";
 import InfiniteScrollContainer from "../shared/InfiniteScrollContainer";
 import { Loader2 } from "lucide-react";
 import { IAttachment } from "@/models/Attachment.model";
+import EventCard from "./EventCard";
 
 // ARTICLE SECTION COMPONENT
-export default function ArticleSection() {
+export default function EventSection() {
   // GET ARTICLES USING INFINITE SCROLL
   const {
     data,
@@ -20,13 +20,13 @@ export default function ArticleSection() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["articles"],
+    queryKey: ["events"],
     queryFn: ({ pageParam }) =>
       kyInstance
-        .get(`/api/get-articles`, {
+        .get(`/api/get-events`, {
           searchParams: { page: pageParam, perPage: 12 },
         })
-        .json<ArticlePage>(),
+        .json<EventPage>(),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.hasNextPage) {
@@ -37,7 +37,7 @@ export default function ArticleSection() {
   });
 
   // TAKE ARTICLES FROM DATA
-  const articles = data?.pages.flatMap((page) => page.articles);
+  const events = data?.pages.flatMap((page) => page.events);
 
   // RETURN LOADING
   if (status === "pending") {
@@ -52,15 +52,15 @@ export default function ArticleSection() {
   if (status === "error") {
     return (
       <div className="flex w-full items-center justify-center">
-        <div className="text-red-500">Failed to fetch articles</div>
+        <div className="text-red-500">Failed to fetch events</div>
       </div>
     );
   }
 
-  if (!articles?.length && status === "success" && !hasNextPage) {
+  if (!events?.length && status === "success" && !hasNextPage) {
     return (
       <div className="flex w-full items-center justify-center">
-        <div className="text-muted-foreground">No articles found</div>
+        <div className="text-muted-foreground">No events found</div>
       </div>
     );
   }
@@ -70,23 +70,23 @@ export default function ArticleSection() {
       className="space-y-5"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-5">
-        {articles?.map((article: IArticle, index: number) => (
-          <ArticleCard
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-5">
+        {events?.map((event: IEvent, index: number) => (
+          <EventCard
             key={index}
-            article={
-              article as IArticle & {
+            event={
+              event as IEvent & {
                 attachments: IAttachment[];
               }
             }
             isFirstArticle={index === 0}
-            className={
-              index === 0
-                ? "md:col-span-2 md:row-span-2"
-                : index === 3
-                ? "md:col-span-2"
-                : ""
-            }
+            // className={
+            //   index === 0
+            //     ? "md:col-span-2 md:row-span-2"
+            //     : index === 3
+            //     ? "md:col-span-2"
+            //     : ""
+            // }
           />
         ))}
       </div>

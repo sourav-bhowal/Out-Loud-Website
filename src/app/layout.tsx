@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Out Loud",
     default: "Out Loud",
   },
-  description: "A articles and blog site",
+  description: "A debate and language organization for college students.",
 };
 
 export default function RootLayout({
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >

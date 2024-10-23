@@ -153,7 +153,7 @@ export default function AddArticleDialog({
             <FormLabel>Media</FormLabel>
             <div
               {...getRootProps()}
-              className="w-full cursor-pointer mt-2 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center transition hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+              className="w-full cursor-pointer mt-2 rounded-lg border-2 border-dashed border-gray-300 p-3 text-center transition hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
             >
               <input {...getInputProps()} />
               {isDragActive ? (
@@ -184,7 +184,7 @@ export default function AddArticleDialog({
               )}
             </div>
             {isUploading && (
-              <div className="flex items-center justify-center space-x-2">
+              <div className="flex items-center justify-center">
                 <svg
                   className="h-5 w-5 animate-spin text-primary"
                   xmlns="http://www.w3.org/2000/svg"

@@ -5,6 +5,7 @@ import {
   CardFooter,
   Card as MainCard,
 } from "@/components/ui/card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn, formatDate } from "@/lib/utils";
 import { IArticle } from "@/models/Article.model";
 import { IAttachment } from "@/models/Attachment.model";
@@ -12,12 +13,12 @@ import { Clock } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-// 
+//
 interface ArticleCardProps {
   article: IArticle & { attachments: IAttachment[] };
 }
 
-// 
+//
 export default function Card({
   article: { title, content, category, readTime, attachments, updatedAt },
 }: ArticleCardProps) {
@@ -55,17 +56,19 @@ interface PostCardMediaPreviewsProps {
 // POST CARD MEDIA PREVIEWS COMPONENT
 function PostCardMediaPreviews({ medias }: PostCardMediaPreviewsProps) {
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-3 mb-4",
-        medias.length > 1 && "sm:grid sm:grid-cols-2 "
-      )}
-    >
-      {/* MEDIA PREVIEW FOR EACH MEDIA IN POST */}
-      {medias.map((media) => (
-        <PostCardMediaPreview key={media.id} media={media} />
-      ))}
-    </div>
+    <ScrollArea>
+      <div
+        className={cn(
+          "flex gap-4 p-2",
+          medias.length > 1 ? "justify-start" : "justify-center"
+        )}
+      >
+        {medias.map((media, index) => (
+          <PostCardMediaPreview key={index} media={media} />
+        ))}
+      </div>
+      <ScrollBar orientation="horizontal" className="hidden md:flex" />
+    </ScrollArea>
   );
 }
 

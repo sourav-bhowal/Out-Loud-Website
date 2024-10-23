@@ -80,7 +80,14 @@ export default async function Article({ params }: ArticlePageProps) {
         </h2>
         <div className="space-y-5">
           {relatedArticles.map((article, index) => (
-            <ArticleCard key={index} article={article} />
+            <ArticleCard
+              key={index}
+              article={
+                article as IArticle & {
+                  attachments: IAttachment[];
+                }
+              }
+            />
           ))}
         </div>
       </div>
