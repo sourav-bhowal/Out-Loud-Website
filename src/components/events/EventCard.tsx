@@ -1,9 +1,7 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Calendar, Clock } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import placeHolderImage from "@/assets/placeholder-img.webp";
 import { IAttachment } from "@/models/Attachment.model";
 import { IEvent } from "@/models/Event.model";
@@ -20,28 +18,32 @@ interface EventCardProps {
 export default function EventCard({
   event,
   className,
-  // isFirstArticle,
-}: EventCardProps) {
+}: // isFirstArticle,
+EventCardProps) {
   return (
     <Card
       className={`overflow-hidden transition-all hover:shadow-md shadow-blue-500/50 hover:shadow-blue-500/75 ${className}`}
     >
       <div className="aspect-video relative">
-        {
-          event?.attachments[0]?.type === "image" && (
-            <Image
-              src={event?.attachments[0]?.url || placeHolderImage}
-              alt={event.title}
-              className="object-cover w-full h-full transition-transform hover:scale-105"
-              width={800}
-              height={500}
-              priority
-            />
-          )
-          // : (
-          //   <video src={event?.attachments[0]?.url} controls />
-          // )
-        }
+        {event?.attachments[0]?.type === "image" ? (
+          <Image
+            src={event?.attachments[0]?.url}
+            alt={event.title}
+            className="object-cover w-full h-full transition-transform hover:scale-105"
+            width={800}
+            height={500}
+            priority
+          />
+        ) : (
+          <Image
+            src={placeHolderImage}
+            alt={event.title}
+            className="object-cover w-full h-full transition-transform hover:scale-105"
+            width={800}
+            height={500}
+            priority
+          />
+        )}
         <Badge className="absolute top-2 left-2 bg-primary text-primary-foreground">
           {event.date.toString() > new Date().toISOString() && "Upcoming"}
         </Badge>
@@ -64,14 +66,14 @@ export default function EventCard({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
+      {/* <CardFooter className="p-4 pt-0">
         <Button variant="ghost" className="ml-auto group" asChild>
           <Link href={`/`}>
             Register
             <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </Button>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

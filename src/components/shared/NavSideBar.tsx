@@ -74,15 +74,18 @@ export default function NavSideBar() {
           isSidebarOpen ? "-translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
-        <Link href={"/"} className="flex flex-col h-full">
+        <div className="flex flex-col h-full">
           {/* Company Logo */}
           <div className="p-4 border-b md:flex hidden justify-center items-center">
-            <div className="flex items-center justify-around w-full">
+            <Link
+              href={"/"}
+              className="flex items-center justify-around w-full"
+            >
               <Image src={Logo} alt="Company Logo" className="h-8 w-auto" />
               <span className="text-2xl font-bold tracking-wide text-primary uppercase">
                 Out Loud
               </span>
-            </div>
+            </Link>
           </div>
 
           {/* Navigation */}
@@ -131,7 +134,7 @@ export default function NavSideBar() {
             </SignedIn>
             <ThemeToggler />
           </div>
-        </Link>
+        </div>
       </div>
     </main>
   );
