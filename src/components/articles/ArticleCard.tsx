@@ -8,6 +8,8 @@ import { IArticle } from "@/models/Article.model";
 import placeHolderImage from "@/assets/placeholder-img.webp";
 import { formatDate } from "@/lib/utils";
 import { IAttachment } from "@/models/Attachment.model";
+import { useUser } from "@clerk/nextjs";
+import MoreArticleButtons from "../admin/article/MoreArticleBtns";
 
 // PROPS INTERFACE FOR THE COMPONENT
 interface ArticleProps {
@@ -22,9 +24,11 @@ export default function ArticleCard({
   className,
   isFirstArticle,
 }: ArticleProps) {
+  const { user } = useUser();
+
   return (
     <Card
-      className={`overflow-hidden transition-all hover:shadow-md shadow-blue-500/50 hover:shadow-blue-500/75 ${className}`}
+      className={`overflow-hidden group/article transition-all hover:shadow-md shadow-blue-500/50 hover:shadow-blue-500/75 ${className}`}
     >
       <div className="aspect-video relative">
         {
@@ -45,6 +49,13 @@ export default function ArticleCard({
         <Badge className="absolute top-2 left-2 bg-primary text-primary-foreground">
           {article.category}
         </Badge>
+
+        {article.userId === user?.id && (
+          <MoreArticleButtons
+            article={article}
+            className="absolute top-2 right-2 sm:opacity-0 transition-opacity group-hover/article:opacity-100"
+          />
+        )}
       </div>
       <CardContent className="p-4">
         <h3 className="text-xl font-semibold mb-2 line-clamp-5 capitalize">

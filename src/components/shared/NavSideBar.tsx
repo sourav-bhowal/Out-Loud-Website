@@ -2,7 +2,7 @@
 import {
   AreaChartIcon,
   CircleHelpIcon,
-  ContactRound,
+  // ContactRound,
   GalleryHorizontal,
   // Home,
   LayoutDashboard,
@@ -34,7 +34,7 @@ const navItems = [
   { icon: StarsIcon, label: "Events", href: "/events" },
   { icon: GalleryHorizontal, label: "Gallery", href: "/gallery" },
   { icon: LayoutDashboard, label: "Admin", href: "/admin" },
-  { icon: ContactRound, label: "Contact Us", href: "/contact-us" },
+  // { icon: ContactRound, label: "Contact Us", href: "/contact-us" },
   { icon: CircleHelpIcon, label: "About Us", href: "/about-us" },
 ];
 
