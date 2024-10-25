@@ -49,13 +49,6 @@ export default function ArticleCard({
         <Badge className="absolute top-2 left-2 bg-primary text-primary-foreground">
           {article.category}
         </Badge>
-
-        {article.userId === user?.id && (
-          <MoreArticleButtons
-            article={article}
-            className="absolute top-2 right-2 sm:opacity-0 transition-opacity group-hover/article:opacity-100"
-          />
-        )}
       </div>
       <CardContent className="p-4">
         <h3 className="text-xl font-semibold mb-2 line-clamp-5 capitalize">
@@ -80,6 +73,12 @@ export default function ArticleCard({
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
+        {article.userId === user?.id && (
+          <MoreArticleButtons
+            article={article}
+            className="sm:opacity-0 transition-opacity group-hover/article:opacity-100"
+          />
+        )}
         <Button variant="ghost" className="ml-auto group" asChild>
           <Link href={`/articles/${article._id}`}>
             Read More

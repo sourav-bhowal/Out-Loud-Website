@@ -68,11 +68,9 @@ export default function EditArticleDialog({
   );
 
   // REMOVE PRESENT MEDIA
-  const removePresentAttachment = (id: string) => {
+  const removePresentAttachment = (_id: string) => {
     setCurrentAttachments(
-      currentAttachments.filter(
-        (attachment: IAttachment) => attachment.id !== id
-      )
+      currentAttachments.filter((attachment: IAttachment) => attachment._id !== _id)
     );
   };
 
@@ -96,7 +94,7 @@ export default function EditArticleDialog({
       ...article.attachments.map((attachment: IAttachment) => attachment._id),
       ...(medias.map((media) => media.mediaId).filter(Boolean) as string[]),
     ];
-    
+
     mutation.mutate(
       // CALL MUTATION
       {
@@ -270,11 +268,10 @@ const PresentMediaPreview: React.FC<MediaPreviewProps> = ({
   removeMedia,
 }) => {
   return (
-    <div className="relative">
+    <div className="relative flex">
       {media.map((m, index) => (
-        <>
+        <div key={index} className="relative flex">
           <Image
-            key={index}
             src={m.url}
             alt="Preview"
             width={100}
@@ -284,10 +281,10 @@ const PresentMediaPreview: React.FC<MediaPreviewProps> = ({
           <div className="absolute left-0 top-0">
             <XCircle
               className="h-5 w-5 cursor-pointer rounded-full bg-black text-white"
-              onClick={() => removeMedia(m.id)}
+              onClick={() => removeMedia(m._id as string)}
             />
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
